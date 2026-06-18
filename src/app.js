@@ -1,21 +1,20 @@
 const express = require("express")
 
 const app = express()
+const {authAdmin, authuser} = require("./middlewares/auth")
 
-app.get("/user" , (req , res)=>{
-    res.send("hello from the user")
+app.use("/admin", authAdmin)
+
+app.get("/user", authuser , (req, res)=>{
+    res.send("user data sent")
 })
 
-app.post("/user" , (req, res)=>{
-    res.send("user created")
+app.get("/admin/getData" , (req , res) => {
+    res.send("all data")
 })
 
-app.delete("/user" , (req , res) =>{
-    res.send("user deleted")
-})
-
-app.use("/test" , (req , res)=>{
-    res.send("hello from test")
+app.delete("/admin/deleteData", (req, res) =>{
+    res.send("Data deleted")
 })
 
 app.listen(3000, ()=>{
